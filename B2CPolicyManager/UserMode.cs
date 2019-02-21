@@ -47,15 +47,15 @@ namespace B2CPolicyManager
             }
         }*/
 
-        public static Task<HttpResponseMessage> HttpGetAsync(string uri)
+        public async static Task<HttpResponseMessage> HttpGetAsync(string uri)
         {
             HttpRequestMessage request = new HttpRequestMessage(HttpMethod.Get, uri);
-            AuthenticationHelper.AddHeaders(request);
+            await AuthenticationHelper.AddHeadersAsync(request);
             HttpClient httpClient = new HttpClient();
             Task<HttpResponseMessage> response = httpClient.SendAsync(request, HttpCompletionOption.ResponseContentRead);
             //Task<string> content = response.Result.Content.ReadAsStringAsync();
             //PolicyList pL = JsonConvert.DeserializeObject<PolicyList>(content.Result);
-            return response;
+            return await response;
         }
         /*
         public static HttpRequestMessage HttpGetID(string uri, string id)
@@ -66,40 +66,43 @@ namespace B2CPolicyManager
             return request;
         }*/
 
-        public static Task<HttpResponseMessage> HttpPutIDAsync(string uri, string id, string xml)
+        public async static Task<HttpResponseMessage> HttpPutIDAsync(string uri, string id, string xml)
         {
             string uriWithID = String.Format(uri, id);
             HttpRequestMessage request = new HttpRequestMessage(HttpMethod.Put, uriWithID);
-            AuthenticationHelper.AddHeaders(request);
+            await AuthenticationHelper.AddHeadersAsync(request);
             request.Content = new StringContent(xml, Encoding.UTF8, "application/xml");
             HttpClient httpClient = new HttpClient();
             Task<HttpResponseMessage> response = httpClient.SendAsync(request, HttpCompletionOption.ResponseContentRead);
-            return response;
+            return await response;
         }
 
-        public static Task<HttpResponseMessage> HttpPostAsync(string policyUri, string xml)
+        public async static Task<HttpResponseMessage> HttpPostAsync(string policyUri, string xml)
         {
             HttpRequestMessage request = new HttpRequestMessage(HttpMethod.Post, policyUri);
-            AuthenticationHelper.AddHeaders(request);
+            await AuthenticationHelper.AddHeadersAsync(request);
             request.Content = new StringContent(xml, Encoding.UTF8, "application/xml");
             HttpClient httpClient = new HttpClient();
             Task<HttpResponseMessage> response = httpClient.SendAsync(request, HttpCompletionOption.ResponseContentRead);
             //Task<string> content = response.Result.Content.ReadAsStringAsync();
             //PolicyList pL = JsonConvert.DeserializeObject<PolicyList>(content.Result);
-            return response;
+            return await response;
         }
 
-        public static Task<HttpResponseMessage> HttpDeleteIDAsync(string policyUri, string policyByIdURI, string id)
+        public async static Task<HttpResponseMessage> HttpDeleteIDAsync(string policyUri, string policyByIdURI, string id)
         {
             string uriWithID = String.Format(policyByIdURI, id);
             HttpRequestMessage request = new HttpRequestMessage(HttpMethod.Delete, uriWithID);
-            AuthenticationHelper.AddHeaders(request);
+            await AuthenticationHelper.AddHeadersAsync(request);
             HttpClient httpClient = new HttpClient();
             Task<HttpResponseMessage> response = httpClient.SendAsync(request, HttpCompletionOption.ResponseContentRead);
             //Task<string> content = response.Result.Content.ReadAsStringAsync();
             //PolicyList pL = JsonConvert.DeserializeObject<PolicyList>(content.Result);
-            return response;
+            return await response;
         }
+
+
+
         /*
         public static void LoginAsAdmin()
         {

@@ -10,12 +10,30 @@ using System.Threading.Tasks;
 
 namespace B2CPolicyManager
 {
-    class AuthenticationHelper
+    public class AuthenticationHelper
     {
         public static string[] Scopes = { "User.Read" };
 
-        public static PublicClientApplication IdentityClientApp = new PublicClientApplication(Properties.Settings.Default.V2AppId);
-        public static string TokenForUser = null;
+        private static PublicClientApplication identityClientApp;
+        private static readonly object padlock = new object();
+
+        public static PublicClientApplication IdentityClientApp {
+            get
+            {
+                if (identityClientApp == null)
+                {
+                    lock (padlock)
+                    {
+                        if (identityClientApp == null)
+                        {
+                            identityClientApp = new PublicClientApplication(Properties.Settings.Default.V2AppId);
+                        }
+                    }
+                }
+                return identityClientApp;
+            }
+        }
+        
         public static DateTimeOffset Expiration;
 
         /// <summary>
@@ -25,43 +43,41 @@ namespace B2CPolicyManager
         public static async Task<string> GetTokenForUserAsync()
         {
             AuthenticationResult authResult;
+            string tokenForUser = null;
             try
             {
                 authResult = await IdentityClientApp.AcquireTokenSilentAsync(Scopes, IdentityClientApp.Users.First());
-                TokenForUser = authResult.AccessToken;
+                tokenForUser = authResult.AccessToken;
             }
 
             catch (Exception)
             {
-                if (TokenForUser == null || Expiration <= DateTimeOffset.UtcNow.AddMinutes(5))
+                if (tokenForUser == null || Expiration <= DateTimeOffset.UtcNow.AddMinutes(5))
                 {
                     try
                     {
                         authResult = await IdentityClientApp.AcquireTokenAsync(Scopes);
 
-                        TokenForUser = authResult.AccessToken;
+                        tokenForUser = authResult.AccessToken;
                         Expiration = authResult.ExpiresOn;
                     }
                     catch
                     {
-                        return TokenForUser;
+                        return tokenForUser;
                     }
                 }
             }
 
-            return TokenForUser;
+            return tokenForUser;
         }
 
-        public static void AddHeaders(HttpRequestMessage requestMessage)
-        {
-            if (TokenForUser == null)
-            {
-                Debug.WriteLine("Call GetAuthenticatedClientForUser first");
-            }
 
+        public static async Task AddHeadersAsync(HttpRequestMessage requestMessage)
+        {
+            string tokenForUser = await GetTokenForUserAsync();
             try
             {
-                requestMessage.Headers.Authorization = new AuthenticationHeaderValue("bearer", TokenForUser);
+                requestMessage.Headers.Authorization = new AuthenticationHeaderValue("bearer", tokenForUser);
                 requestMessage.Headers.Add("SampleID", "console-csharp-trustframeworkpolicy");
             }
             catch (Exception ex)
