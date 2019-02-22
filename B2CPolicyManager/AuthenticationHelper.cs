@@ -78,7 +78,7 @@ namespace B2CPolicyManager
             try
             {
                 requestMessage.Headers.Authorization = new AuthenticationHeaderValue("bearer", tokenForUser);
-                requestMessage.Headers.Add("SampleID", "console-csharp-trustframeworkpolicy");
+                requestMessage.Headers.Add("SampleID", "policy-manager-jasuri");
             }
             catch (Exception ex)
             {
