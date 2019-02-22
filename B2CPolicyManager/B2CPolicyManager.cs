@@ -13,6 +13,7 @@ using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Xml.Linq;
 
 namespace B2CPolicyManager
 {
@@ -148,9 +149,17 @@ namespace B2CPolicyManager
         private void UpdatePolicyList(PolicyList myPolicies)
         {
             policyList.Items.Clear();
+            List<string> unsortedList = new List<string>();
             foreach (Value policyValue in myPolicies.Value)
             {
-                policyList.Items.Add(policyValue.Id);
+                unsortedList.Add(policyValue.Id);
+            }
+
+            List<string>sortedList = unsortedList.OrderBy(x => x).ToList();
+
+            foreach (string policyValue in sortedList)
+            {
+                policyList.Items.Add(policyValue);
             }
         }
 
@@ -295,7 +304,13 @@ namespace B2CPolicyManager
                     {
                         string xml = File.ReadAllText(policyFolderLbl.Text + @"\" + file);
                         string fileName = file.Split('.')[0];
-                        response = await UserMode.HttpPutIDAsync(Constants.TrustFrameworkPolicyByIDUriPUT, @"B2C_1A_" + fileName, xml);
+
+                        //Get actual policy id
+                        XDocument policyFile = XDocument.Parse(xml);
+                        string id = policyFile.Root.Attribute("PolicyId").Value;
+
+
+                        response = await UserMode.HttpPutIDAsync(Constants.TrustFrameworkPolicyByIDUriPUT, id, xml);
                         if (response.IsSuccessStatusCode == false)
                         {
                             HTTPResponse.AppendText(await response.Content.ReadAsStringAsync());
