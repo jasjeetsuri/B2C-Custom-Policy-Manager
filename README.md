@@ -16,8 +16,6 @@ This sample demonstrates the following:
 ### Prerequisites
 
 This sample requires the following:
-
-* Request access to the private preview.  This API is in private preview and must be enabled for your test tenant.  Please contact [AADB2CPreview@microsoft.com](mailto:AADB2CPreview@microsoft.com) with the name of your test tenant and 'custom policy APIs' in the title of your email.  This feature is not yet ready for production tenants.
 * [Visual Studio](https://www.visualstudio.com/en-us/downloads)
 * [Azure AD B2C tenant](https://docs.microsoft.com/en-us/azure/active-directory-b2c/active-directory-b2c-get-started)
 
@@ -31,19 +29,24 @@ This sample requires the following:
 
 #### Setup and usage
 
-1. Sign in to the [Application Registration Portal](https://apps.dev.microsoft.com/) using your Microsoft account.
-1. Select **Add an app**, and enter a friendly name for the application (such as **B2C Policy Manager**). Click **Create**.
-1. On the application registration page, select **Add Platform**. Select the **Native App** tile and save your change. The **delegated permissions** operations in this sample use permissions that are specified in the AuthenticationHelper.cs file. This is why you don't need to assign any permissions to the app on this page.
-1. Open build the solution in Visual Studio. 
+1. Sign in to the [Azure Portal](https://portal.azure.com/) using your Global Admin account.
+1. Select your Azure AD B2C directory from the directory filter.
+2. Select the **Azure Active Directory Blade**.
+3. Select **Application Registrations**, and create a new Application.
+4. Select Type `Native`, and enter the redirect API: `https://b2capi.com`, create the App.
+5. Select **Settings** - **Required Permissions** - **Add** - **Select An API**. Choose the Microsoft Graph API.
+6. Select the permission **Read and write your organization's trust framework policies**.
+7. Click **Save**, and click **Grant Permissions**.
+1. Open and build the solution in Visual Studio. 
 1. Run the application:
     
     a. Set the Tenant to your B2C tenant: something.onmicrosoft.com
 
-    b. Set the V2 Graph App Id to the App Id from the App Registration created at apps.dev.microsoft.com.
+    b. Set the V1 Graph App Id field to the Application Id from the App Registration created in the AAD Blade.
 
-    c. Set the B2C Application Id to the App Id of an Application Registration created in the AAD B2C Blade at portal.azure.com.
+    c. Set the B2C Application Id to the App Id of an Application Registration created in the AAD B2C Blade.
 
-    d. Set the reply url to a valid Reply URL set on the Application Registration referenced in the step above.
+    d. Set the reply url to a valid Reply URL set on the Application Registration referenced in the step above (AAD B2C App Registration).
 
 1. Click Login and login with the Global Admin of your B2C tenant. It must be in the format user@something.onmicrosoft.com.
 
@@ -52,9 +55,6 @@ After logging in, any custom policies registered in the Identity Experience Fram
 Select a Policy Folder that contains your XML files to upload them.
 
 You can also open the working folder in VSCode by clicking Open Folder in VSCode.
-
->[!NOTE]
-> If you see `Unauthorized. Access to this Api requires feature: EnableIEFPoliciesGraphApis` then your tenant has not been enabled for this private preview.  Please see [Prerequisites](#Prerequisites).
 
 ## Questions and comments
 
