@@ -11,7 +11,7 @@ This sample demonstrates the following:
 * **Delete** a custom policy
 * **List** all custom policies
 
-![Policy Manager](./images/b2cpolicymanager.PNG)
+![Policy Manager](/Images/b2cpolicymanager.PNG)
 
 ## Getting Started
 
