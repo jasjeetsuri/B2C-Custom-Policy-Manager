@@ -17,5 +17,8 @@
     <Setting Name="Folder" Type="System.String" Scope="User">
       <Value Profile="(Default)">No Folder selected.</Value>
     </Setting>
+    <Setting Name="ShowRPs" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">False</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

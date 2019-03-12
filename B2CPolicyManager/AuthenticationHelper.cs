@@ -1,5 +1,4 @@
-﻿using Microsoft.Identity.Client;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
@@ -7,33 +6,16 @@ using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Text;
 using System.Threading.Tasks;
+using Microsoft.IdentityModel.Clients.ActiveDirectory;
 
 namespace B2CPolicyManager
 {
     public class AuthenticationHelper
     {
-        public static string[] Scopes = { "User.Read" };
 
-        private static PublicClientApplication identityClientApp;
+        public static string authority = "https://login.microsoftonline.com/";
         private static readonly object padlock = new object();
 
-        public static PublicClientApplication IdentityClientApp {
-            get
-            {
-                if (identityClientApp == null)
-                {
-                    lock (padlock)
-                    {
-                        if (identityClientApp == null)
-                        {
-                            identityClientApp = new PublicClientApplication(Properties.Settings.Default.V2AppId);
-                        }
-                    }
-                }
-                return identityClientApp;
-            }
-        }
-        
         public static DateTimeOffset Expiration;
 
         /// <summary>
@@ -42,11 +24,15 @@ namespace B2CPolicyManager
         /// <returns>Token for user.</returns>
         public static async Task<string> GetTokenForUserAsync()
         {
+            AuthenticationContext ADALIdentityClientApp = new AuthenticationContext(authority + Properties.Settings.Default.TenantId);
             AuthenticationResult authResult;
             string tokenForUser = null;
             try
             {
-                authResult = await IdentityClientApp.AcquireTokenSilentAsync(Scopes, IdentityClientApp.Users.First());
+
+                authResult = await ADALIdentityClientApp.AcquireTokenAsync("https://graph.microsoft.com", Properties.Settings.Default.V2AppId, new Uri("https://b2capi.com"), new PlatformParameters(PromptBehavior.Auto));
+
+                //authResult = await ADALIdentityClientApp.AcquireTokenSilentAsync(Scopes, ADALIdentityClientApp.Users.First());
                 tokenForUser = authResult.AccessToken;
             }
 
@@ -56,7 +42,7 @@ namespace B2CPolicyManager
                 {
                     try
                     {
-                        authResult = await IdentityClientApp.AcquireTokenAsync(Scopes);
+                        authResult = await ADALIdentityClientApp.AcquireTokenAsync("https://graph.microsoft.com", Properties.Settings.Default.V2AppId, new Uri("https://b2capi.com"), new PlatformParameters(PromptBehavior.Auto));
 
                         tokenForUser = authResult.AccessToken;
                         Expiration = authResult.ExpiresOn;

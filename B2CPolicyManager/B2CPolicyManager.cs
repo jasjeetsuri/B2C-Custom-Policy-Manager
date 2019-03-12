@@ -31,7 +31,7 @@ namespace B2CPolicyManager
 
         private void Button1_Click(object sender, EventArgs e)
         {
-        FolderBrowserDialog fbd = new FolderBrowserDialog();
+            FolderBrowserDialog fbd = new FolderBrowserDialog();
             if (policyFolderLbl.Text != null)
             {
                 fbd.SelectedPath = policyFolderLbl.Text;
@@ -62,16 +62,18 @@ namespace B2CPolicyManager
 
         private async void LoginBtn_Click(object sender, EventArgs e)
         {
-            
+
             //Task<string> token = AuthenticationHelper.GetTokenForUserAsync();
             string token = await AuthenticationHelper.GetTokenForUserAsync();
             if (token != null)
             {
-                HTTPResponse.AppendText("\r\nLogged in, getting Policies.\r\n");
+                DateTime thisDayLogin = DateTime.Now;
+
+                HTTPResponse.AppendText("\r\n" + thisDayLogin.ToString() + " - Logged in, getting policies.\r\n");
                 HttpResponseMessage response = null;
                 response = await UserMode.HttpGetAsync(Constants.TrustFrameworkPolicesUri);
                 string content = await response.Content.ReadAsStringAsync();
-                HTTPResponse.AppendText(await response.Content.ReadAsStringAsync());
+                //HTTPResponse.AppendText(await response.Content.ReadAsStringAsync());
                 PolicyList pL = JsonConvert.DeserializeObject<PolicyList>(content);
 
                 UpdatePolicyList(pL);
@@ -83,7 +85,9 @@ namespace B2CPolicyManager
             string token = await AuthenticationHelper.GetTokenForUserAsync();
             if (token != null)
             {
-                HTTPResponse.AppendText("\r\nGetting Policies.\r\n");
+                DateTime thisDay = DateTime.Now;
+
+                HTTPResponse.AppendText("\r\n" + thisDay.ToString() + " - Getting Policies.\r\n");
                 HttpResponseMessage response = null;
                 response = await UserMode.HttpGetAsync(Constants.TrustFrameworkPolicesUri);
                 string content = await response.Content.ReadAsStringAsync();
@@ -92,7 +96,9 @@ namespace B2CPolicyManager
 
                 if (response.IsSuccessStatusCode == true)
                 {
-                    HTTPResponse.AppendText("\r\nSuccessfully updated policy list.\r\n");
+                    DateTime thisDayGotList = DateTime.Now;
+
+                    HTTPResponse.AppendText("\r\n" + thisDayGotList.ToString() + " - Successfully updated policy list.\r\n");
                 }
                 else
                 {
@@ -114,14 +120,18 @@ namespace B2CPolicyManager
                 string token = await AuthenticationHelper.GetTokenForUserAsync();
                 if (token != null)
                 {
-                    HTTPResponse.AppendText("\r\nDeleting " + policyList.SelectedItem.ToString() +"\r\n");
+                    DateTime thisDay = DateTime.Now;
+
+                    HTTPResponse.AppendText("\r\n" + thisDay.ToString() + " - Deleting " + policyList.SelectedItem.ToString() + "\r\n");
                     HttpResponseMessage response = null;
                     response = await UserMode.HttpDeleteIDAsync(Constants.TrustFrameworkPolicesUri, Constants.TrustFrameworkPolicyByIDUri, policyList.SelectedItem.ToString());
                     string content = await response.Content.ReadAsStringAsync();
 
                     if (response.IsSuccessStatusCode == true)
                     {
-                        HTTPResponse.AppendText("\r\nSuccessfully deleted " + policyList.SelectedItem.ToString() + "\r\n");
+                        DateTime thisDayItem = DateTime.Now;
+
+                        HTTPResponse.AppendText("\r\n" + thisDayItem.ToString() + " - Successfully deleted " + policyList.SelectedItem.ToString() + "\r\n");
                     }
                     else
                     {
@@ -134,7 +144,9 @@ namespace B2CPolicyManager
                     //HTTPResponse.AppendText(await response.Content.ReadAsStringAsync());
                     if (response.IsSuccessStatusCode == true)
                     {
-                        HTTPResponse.AppendText("\r\nSuccessfully updated policy list.\r\n");
+                        DateTime thisDayUpdate = DateTime.Now;
+
+                        HTTPResponse.AppendText("\r\n" + thisDayUpdate.ToString() + " - Successfully updated policy list.\r\n");
                     }
                     else
                     {
@@ -148,14 +160,29 @@ namespace B2CPolicyManager
 
         private void UpdatePolicyList(PolicyList myPolicies)
         {
+
             policyList.Items.Clear();
             List<string> unsortedList = new List<string>();
-            foreach (Value policyValue in myPolicies.Value)
+            if (showRPs.Checked)
             {
-                unsortedList.Add(policyValue.Id);
+                foreach (Value policyValue in myPolicies.Value)
+                {
+                    if (!policyValue.Id.Contains("Base") && !policyValue.Id.Contains("Extensions"))
+                    {
+                        unsortedList.Add(policyValue.Id);
+                    }
+                }
             }
 
-            List<string>sortedList = unsortedList.OrderBy(x => x).ToList();
+            if (!showRPs.Checked)
+            {
+                foreach (Value policyValue in myPolicies.Value)
+                {
+
+                    unsortedList.Add(policyValue.Id);
+                }
+            }
+            List<string> sortedList = unsortedList.OrderBy(x => x).ToList();
 
             foreach (string policyValue in sortedList)
             {
@@ -168,7 +195,9 @@ namespace B2CPolicyManager
             string token = await AuthenticationHelper.GetTokenForUserAsync();
             if (token != null)
             {
-                HTTPResponse.AppendText("\r\nDeleting all custom polices from B2C.\r\n");
+                DateTime thisDay = DateTime.Now;
+
+                HTTPResponse.AppendText("\r\n" + thisDay.ToString() + " - Deleting all custom polices from B2C.\r\n");
                 HttpResponseMessage response = null;
                 response = await UserMode.HttpGetAsync(Constants.TrustFrameworkPolicesUri);
                 HTTPResponse.AppendText(await response.Content.ReadAsStringAsync());
@@ -177,10 +206,12 @@ namespace B2CPolicyManager
                 foreach (Value policyValue in pL.Value)
                 {
                     response = await UserMode.HttpDeleteIDAsync(Constants.TrustFrameworkPolicesUri, Constants.TrustFrameworkPolicyByIDUri, policyValue.Id);
-                    string  log = await response.Content.ReadAsStringAsync();
+                    string log = await response.Content.ReadAsStringAsync();
                     if (response.IsSuccessStatusCode == true)
                     {
-                        HTTPResponse.AppendText("\r\nSuccessfully deleted " + policyValue.ToString() + "\r\n");
+                        DateTime thisDayDeleted = DateTime.Now;
+
+                        HTTPResponse.AppendText("\r\n" + thisDayDeleted.ToString() + " - Successfully deleted " + policyValue.ToString() + "\r\n");
                     }
                     else
                     {
@@ -200,7 +231,7 @@ namespace B2CPolicyManager
 
         private async void UploadFolderBtn_Click(object sender, EventArgs e)
         {
-            if (policyFolderLbl.Text != "No Folder selected.")
+            /*if (policyFolderLbl.Text != "No Folder selected.")
             {
                 HTTPResponse.AppendText("\r\nUploading selected policies\r\n");
                 string token = await AuthenticationHelper.GetTokenForUserAsync();
@@ -264,7 +295,7 @@ namespace B2CPolicyManager
 
                     UpdatePolicyList(pL);
                 }
-            }
+            }*/
         }
 
         private async void UpdateAllPolicesBtn_Click(object sender, EventArgs e)
@@ -272,10 +303,12 @@ namespace B2CPolicyManager
 
             if (policyFolderLbl.Text != "No Folder selected.")
             {
-                HTTPResponse.AppendText("\r\nUpdating selected policies.\r\n");
+                DateTime thisDay = DateTime.Now;
+
+                HTTPResponse.AppendText("\r\n" + thisDay.ToString() + " - Updating selected policies.\r\n");
                 string token = await AuthenticationHelper.GetTokenForUserAsync();
                 if (token != null)
-                { 
+                {
                     HttpResponseMessage response = null;
                     string[] fileEntries = checkedPolicyList.CheckedItems.OfType<string>().ToArray();
                     List<string> fileList = new List<string>(fileEntries);
@@ -300,6 +333,7 @@ namespace B2CPolicyManager
                         fileList.RemoveAt(indexBase + 1);
                     }
 
+
                     foreach (string file in fileList)
                     {
                         string xml = File.ReadAllText(policyFolderLbl.Text + @"\" + file);
@@ -309,7 +343,6 @@ namespace B2CPolicyManager
                         XDocument policyFile = XDocument.Parse(xml);
                         string id = policyFile.Root.Attribute("PolicyId").Value;
 
-
                         response = await UserMode.HttpPutIDAsync(Constants.TrustFrameworkPolicyByIDUriPUT, id, xml);
                         if (response.IsSuccessStatusCode == false)
                         {
@@ -317,7 +350,9 @@ namespace B2CPolicyManager
                         }
                         else
                         {
-                            HTTPResponse.AppendText("\r\nSuccefully updated " + file + "\r\n");
+                            DateTime thisDayUpdated = DateTime.Now;
+
+                            HTTPResponse.AppendText("\r\n" + thisDayUpdated.ToString() + " - Succefully updated " + file + "\r\n");
                         }
                     }
 
@@ -326,16 +361,18 @@ namespace B2CPolicyManager
                     //HTTPResponse.AppendText(await response.Content.ReadAsStringAsync());
                     if (response.IsSuccessStatusCode == true)
                     {
-                        HTTPResponse.AppendText("\r\nSuccessfully updated policy list.\r\n");
+                        PolicyList pL = JsonConvert.DeserializeObject<PolicyList>(content);
+
+                        UpdatePolicyList(pL);
+                        DateTime thisDayUpdateList = DateTime.Now;
+
+                        HTTPResponse.AppendText("\r\n" + thisDayUpdateList.ToString() + " - Successfully updated policy list.\r\n");
                     }
                     else
                     {
                         HTTPResponse.AppendText(content);
                     }
-                    
-                    PolicyList pL = JsonConvert.DeserializeObject<PolicyList>(content);
 
-                    UpdatePolicyList(pL);
                 }
             }
 
@@ -379,7 +416,7 @@ namespace B2CPolicyManager
             {
                 RunNowtxt.Text = string.Format("https://login.microsoftonline.com/{0}/oauth2/v2.0/authorize?p={1}&client_id={2}&nonce=defaultNonce&redirect_uri={3}&scope=openid&response_type=id_token&prompt=login", tenantTxt.Text, policyList.SelectedItem.ToString(), AppIdtxt.Text, ReplyUrltxt.Text);
             }
-            
+
             Properties.Settings.Default.B2CAppId = AppIdtxt.Text;
             Properties.Settings.Default.Save();
         }
@@ -417,7 +454,7 @@ namespace B2CPolicyManager
                 {
                     Regex regex = new Regex(@"\w*");
                     Match match = regex.Match(tenantTxt.Text);
-                    
+
 
                     RunNowtxt.Text = string.Format("https://{0}.b2clogin.com/{1}/oauth2/v2.0/authorize?p={2}&client_id={3}&nonce=defaultNonce&redirect_uri={4}&scope=openid&response_type=id_token&prompt=login", match.Value, tenantTxt.Text, policyList.SelectedItem.ToString(), AppIdtxt.Text, ReplyUrltxt.Text);
 
@@ -436,6 +473,7 @@ namespace B2CPolicyManager
             this.v2AppIDGraphtxt.Text = Properties.Settings.Default.V2AppId;
             this.ReplyUrltxt.Text = Properties.Settings.Default.ReplyUrl;
             this.policyFolderLbl.Text = Properties.Settings.Default.Folder;
+            this.showRPs.Checked = Properties.Settings.Default.ShowRPs;
 
             if (this.policyFolderLbl.Text != "No Folder selected.")
             {

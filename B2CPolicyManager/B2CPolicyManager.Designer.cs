@@ -58,12 +58,13 @@
             this.selectAllPolicies = new System.Windows.Forms.Button();
             this.deselectAllPolicies = new System.Windows.Forms.Button();
             this.button6 = new System.Windows.Forms.Button();
+            this.showRPs = new System.Windows.Forms.CheckBox();
             this.SuspendLayout();
             // 
             // selectPolicyBtn
             // 
             this.selectPolicyBtn.Location = new System.Drawing.Point(84, 142);
-            this.selectPolicyBtn.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
+            this.selectPolicyBtn.Margin = new System.Windows.Forms.Padding(6);
             this.selectPolicyBtn.Name = "selectPolicyBtn";
             this.selectPolicyBtn.Size = new System.Drawing.Size(233, 42);
             this.selectPolicyBtn.TabIndex = 1;
@@ -85,7 +86,7 @@
             // listBtn
             // 
             this.listBtn.Location = new System.Drawing.Point(504, 295);
-            this.listBtn.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
+            this.listBtn.Margin = new System.Windows.Forms.Padding(6);
             this.listBtn.Name = "listBtn";
             this.listBtn.Size = new System.Drawing.Size(178, 42);
             this.listBtn.TabIndex = 8;
@@ -96,7 +97,7 @@
             // deleteSelectedBtn
             // 
             this.deleteSelectedBtn.Location = new System.Drawing.Point(697, 295);
-            this.deleteSelectedBtn.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
+            this.deleteSelectedBtn.Margin = new System.Windows.Forms.Padding(6);
             this.deleteSelectedBtn.Name = "deleteSelectedBtn";
             this.deleteSelectedBtn.Size = new System.Drawing.Size(178, 42);
             this.deleteSelectedBtn.TabIndex = 9;
@@ -107,7 +108,7 @@
             // deleteAllBtn
             // 
             this.deleteAllBtn.Location = new System.Drawing.Point(504, 685);
-            this.deleteAllBtn.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
+            this.deleteAllBtn.Margin = new System.Windows.Forms.Padding(6);
             this.deleteAllBtn.Name = "deleteAllBtn";
             this.deleteAllBtn.Size = new System.Drawing.Size(233, 42);
             this.deleteAllBtn.TabIndex = 11;
@@ -120,7 +121,7 @@
             this.policyList.FormattingEnabled = true;
             this.policyList.ItemHeight = 24;
             this.policyList.Location = new System.Drawing.Point(504, 349);
-            this.policyList.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
+            this.policyList.Margin = new System.Windows.Forms.Padding(6);
             this.policyList.Name = "policyList";
             this.policyList.Size = new System.Drawing.Size(367, 316);
             this.policyList.TabIndex = 10;
@@ -131,7 +132,7 @@
             this.loginBtn.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.loginBtn.ForeColor = System.Drawing.SystemColors.Highlight;
             this.loginBtn.Location = new System.Drawing.Point(84, 68);
-            this.loginBtn.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
+            this.loginBtn.Margin = new System.Windows.Forms.Padding(6);
             this.loginBtn.Name = "loginBtn";
             this.loginBtn.Size = new System.Drawing.Size(138, 42);
             this.loginBtn.TabIndex = 0;
@@ -142,7 +143,7 @@
             // UpdateAllPolicesBtn
             // 
             this.UpdateAllPolicesBtn.Location = new System.Drawing.Point(84, 295);
-            this.UpdateAllPolicesBtn.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
+            this.UpdateAllPolicesBtn.Margin = new System.Windows.Forms.Padding(6);
             this.UpdateAllPolicesBtn.Name = "UpdateAllPolicesBtn";
             this.UpdateAllPolicesBtn.Size = new System.Drawing.Size(370, 42);
             this.UpdateAllPolicesBtn.TabIndex = 5;
@@ -156,7 +157,7 @@
             this.checkedPolicyList.FormattingEnabled = true;
             this.checkedPolicyList.HorizontalScrollbar = true;
             this.checkedPolicyList.Location = new System.Drawing.Point(84, 349);
-            this.checkedPolicyList.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
+            this.checkedPolicyList.Margin = new System.Windows.Forms.Padding(6);
             this.checkedPolicyList.Name = "checkedPolicyList";
             this.checkedPolicyList.Size = new System.Drawing.Size(367, 268);
             this.checkedPolicyList.TabIndex = 6;
@@ -165,7 +166,7 @@
             // RefrshFileListBtn
             // 
             this.RefrshFileListBtn.Location = new System.Drawing.Point(603, 142);
-            this.RefrshFileListBtn.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
+            this.RefrshFileListBtn.Margin = new System.Windows.Forms.Padding(6);
             this.RefrshFileListBtn.Name = "RefrshFileListBtn";
             this.RefrshFileListBtn.Size = new System.Drawing.Size(187, 42);
             this.RefrshFileListBtn.TabIndex = 7;
@@ -176,7 +177,7 @@
             // HTTPResponse
             // 
             this.HTTPResponse.Location = new System.Drawing.Point(84, 738);
-            this.HTTPResponse.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
+            this.HTTPResponse.Margin = new System.Windows.Forms.Padding(6);
             this.HTTPResponse.Multiline = true;
             this.HTTPResponse.Name = "HTTPResponse";
             this.HTTPResponse.ReadOnly = true;
@@ -187,7 +188,7 @@
             // AppIdtxt
             // 
             this.AppIdtxt.Location = new System.Drawing.Point(924, 330);
-            this.AppIdtxt.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
+            this.AppIdtxt.Margin = new System.Windows.Forms.Padding(6);
             this.AppIdtxt.Name = "AppIdtxt";
             this.AppIdtxt.Size = new System.Drawing.Size(538, 29);
             this.AppIdtxt.TabIndex = 17;
@@ -197,7 +198,7 @@
             // ReplyUrltxt
             // 
             this.ReplyUrltxt.Location = new System.Drawing.Point(924, 423);
-            this.ReplyUrltxt.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
+            this.ReplyUrltxt.Margin = new System.Windows.Forms.Padding(6);
             this.ReplyUrltxt.Name = "ReplyUrltxt";
             this.ReplyUrltxt.Size = new System.Drawing.Size(538, 29);
             this.ReplyUrltxt.TabIndex = 19;
@@ -207,7 +208,7 @@
             // RunNowtxt
             // 
             this.RunNowtxt.Location = new System.Drawing.Point(928, 524);
-            this.RunNowtxt.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
+            this.RunNowtxt.Margin = new System.Windows.Forms.Padding(6);
             this.RunNowtxt.Multiline = true;
             this.RunNowtxt.Name = "RunNowtxt";
             this.RunNowtxt.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
@@ -248,7 +249,7 @@
             // button1
             // 
             this.button1.Location = new System.Drawing.Point(1386, 524);
-            this.button1.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
+            this.button1.Margin = new System.Windows.Forms.Padding(6);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(79, 42);
             this.button1.TabIndex = 22;
@@ -259,7 +260,7 @@
             // tenantTxt
             // 
             this.tenantTxt.Location = new System.Drawing.Point(930, 98);
-            this.tenantTxt.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
+            this.tenantTxt.Margin = new System.Windows.Forms.Padding(6);
             this.tenantTxt.Name = "tenantTxt";
             this.tenantTxt.Size = new System.Drawing.Size(538, 29);
             this.tenantTxt.TabIndex = 13;
@@ -279,7 +280,7 @@
             // v2AppIDGraphtxt
             // 
             this.v2AppIDGraphtxt.Location = new System.Drawing.Point(930, 192);
-            this.v2AppIDGraphtxt.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
+            this.v2AppIDGraphtxt.Margin = new System.Windows.Forms.Padding(6);
             this.v2AppIDGraphtxt.Name = "v2AppIDGraphtxt";
             this.v2AppIDGraphtxt.Size = new System.Drawing.Size(538, 29);
             this.v2AppIDGraphtxt.TabIndex = 15;
@@ -299,7 +300,7 @@
             // button2
             // 
             this.button2.Location = new System.Drawing.Point(1327, 1150);
-            this.button2.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
+            this.button2.Margin = new System.Windows.Forms.Padding(6);
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(138, 42);
             this.button2.TabIndex = 26;
@@ -310,7 +311,7 @@
             // VSCodeBtn
             // 
             this.VSCodeBtn.Location = new System.Drawing.Point(328, 142);
-            this.VSCodeBtn.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
+            this.VSCodeBtn.Margin = new System.Windows.Forms.Padding(6);
             this.VSCodeBtn.Name = "VSCodeBtn";
             this.VSCodeBtn.Size = new System.Drawing.Size(264, 42);
             this.VSCodeBtn.TabIndex = 2;
@@ -321,7 +322,7 @@
             // ChromeBtn
             // 
             this.ChromeBtn.Location = new System.Drawing.Point(930, 687);
-            this.ChromeBtn.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
+            this.ChromeBtn.Margin = new System.Windows.Forms.Padding(6);
             this.ChromeBtn.Name = "ChromeBtn";
             this.ChromeBtn.Size = new System.Drawing.Size(167, 42);
             this.ChromeBtn.TabIndex = 23;
@@ -332,7 +333,7 @@
             // IEBtn
             // 
             this.IEBtn.Location = new System.Drawing.Point(1107, 687);
-            this.IEBtn.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
+            this.IEBtn.Margin = new System.Windows.Forms.Padding(6);
             this.IEBtn.Name = "IEBtn";
             this.IEBtn.Size = new System.Drawing.Size(167, 42);
             this.IEBtn.TabIndex = 24;
@@ -343,7 +344,7 @@
             // selectAllPolicies
             // 
             this.selectAllPolicies.Location = new System.Drawing.Point(84, 687);
-            this.selectAllPolicies.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.selectAllPolicies.Margin = new System.Windows.Forms.Padding(4);
             this.selectAllPolicies.Name = "selectAllPolicies";
             this.selectAllPolicies.Size = new System.Drawing.Size(156, 42);
             this.selectAllPolicies.TabIndex = 30;
@@ -354,7 +355,7 @@
             // deselectAllPolicies
             // 
             this.deselectAllPolicies.Location = new System.Drawing.Point(246, 687);
-            this.deselectAllPolicies.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.deselectAllPolicies.Margin = new System.Windows.Forms.Padding(4);
             this.deselectAllPolicies.Name = "deselectAllPolicies";
             this.deselectAllPolicies.Size = new System.Drawing.Size(156, 42);
             this.deselectAllPolicies.TabIndex = 31;
@@ -365,13 +366,23 @@
             // button6
             // 
             this.button6.Location = new System.Drawing.Point(1285, 687);
-            this.button6.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
+            this.button6.Margin = new System.Windows.Forms.Padding(6);
             this.button6.Name = "button6";
             this.button6.Size = new System.Drawing.Size(167, 42);
             this.button6.TabIndex = 32;
             this.button6.Text = "Saml SP";
             this.button6.UseVisualStyleBackColor = true;
             this.button6.Click += new System.EventHandler(this.button6_Click_1);
+            // 
+            // showRPs
+            // 
+            this.showRPs.AutoSize = true;
+            this.showRPs.Location = new System.Drawing.Point(504, 246);
+            this.showRPs.Name = "showRPs";
+            this.showRPs.Size = new System.Drawing.Size(175, 29);
+            this.showRPs.TabIndex = 33;
+            this.showRPs.Text = "Show RPs Only";
+            this.showRPs.UseVisualStyleBackColor = true;
             // 
             // B2CPolicyManager
             // 
@@ -381,6 +392,7 @@
             this.BackColor = System.Drawing.SystemColors.Control;
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
             this.ClientSize = new System.Drawing.Size(1544, 1030);
+            this.Controls.Add(this.showRPs);
             this.Controls.Add(this.button6);
             this.Controls.Add(this.deselectAllPolicies);
             this.Controls.Add(this.selectAllPolicies);
@@ -411,7 +423,7 @@
             this.Controls.Add(this.policyFolderLbl);
             this.Controls.Add(this.selectPolicyBtn);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
-            this.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
+            this.Margin = new System.Windows.Forms.Padding(6);
             this.MinimumSize = new System.Drawing.Size(1546, 987);
             this.Name = "B2CPolicyManager";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
@@ -453,6 +465,7 @@
         private System.Windows.Forms.Button selectAllPolicies;
         private System.Windows.Forms.Button deselectAllPolicies;
         private System.Windows.Forms.Button button6;
+        private System.Windows.Forms.CheckBox showRPs;
     }
 }
 
