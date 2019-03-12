@@ -36,7 +36,7 @@ This sample requires the following:
 2. Select the **Azure Active Directory Blade**.
 3. Select **Application Registrations**, and create a new Application.
 4. Select Type `Native`, and enter the redirect API: `https://b2capi.com`, create the App.
-5. Select **Settings** - **Required Permissions** - **Add** - **Select An API**. Choose the Microsoft Graph API.
+5. Select **Settings** - **Required Permissions** - **Add** - **Select An API**. Choose the `Microsoft Graph API`.
 6. Select the permission **Read and write your organization's trust framework policies**.
 7. Click **Save**, and click **Grant Permissions**.
 1. Open and build the solution in Visual Studio. 
@@ -70,7 +70,7 @@ This project has adopted the [Microsoft Open Source Code of Conduct](https://ope
 
 ## Resources
 
-The sample uses the Microsoft Authentication Library (MSAL) for authentication. The sample demonstrates both delegated admin permissions.  (app only permissions are not supported yet)
+The sample uses the Active Directory Authentication Library (ADAL) for authentication. The sample demonstrates delegated admin permissions. (App only permissions are not supported yet)
 
 **Delegated permissions** are used by apps that have a signed-in user present (in this case tenant administrator). For these apps either the user or an administrator consents to the permissions that the app requests and the app is delegated permission to act as the signed-in user when making calls to Microsoft Graph. Some delegated permissions can be consented to by non-administrative users, but some higher-privileged permissions require administrator consent.
 
