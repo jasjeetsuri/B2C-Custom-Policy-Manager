@@ -1,4 +1,5 @@
 # Manage custom polices in Azure AD B2C using Graph API
+# Latest updates here: https://github.com/azure-ad-b2c/custom-policy-manager
 
 This is a sample management tool for B2C Custom Policies.  [Custom policy](https://docs.microsoft.com/en-us/azure/active-directory-b2c/active-directory-b2c-overview-custom) allows you to customize every aspect of the authentication flow.
 
